@@ -1,0 +1,14 @@
+.Repositories{
+    h1{
+        padding-top:0;
+        margin-top:0;
+    }
+    .Row{
+        display: flex;
+        flex-wrap: wrap;
+       
+        .Card{
+            color:red;
+        }
+    }
+}

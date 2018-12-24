@@ -31,7 +31,7 @@ class App extends React.Component {
             <Navbarmenu />
             <img src={logoReact} width={100} className="App-logo" alt="logo" />
 
-            <header className="App-header">
+            <main className="App-main">
             {/* <img src={logoReact} width={100} className="App-logo" alt="logo" /> */}
 
               <Router>
@@ -40,17 +40,8 @@ class App extends React.Component {
                   <Route path="/contacts" component={contacts} />
                 </Switch>
               </Router>
-              {/* <img src={logoReact} width={100} className="App-logo" alt="logo" /> */}
-
-              {/* <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a> */}
-            </header>
+           
+            </main>
           </div>
         )}
       </div>
