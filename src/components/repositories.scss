@@ -1,14 +1,41 @@
-.Repositories{
-    h1{
-        padding-top:0;
-        margin-top:0;
-    }
-    .Row{
-        display: flex;
-        flex-wrap: wrap;
-       
-        .Card{
-            color:red;
+.Repositories {
+  h1 {
+    padding-top: 0;
+    margin-top: 0;
+    color: aqua;
+  }
+  .Row {
+    display: flex;
+    flex-wrap: wrap;
+
+    .Card {
+      .CardBody {
+        .CardTitle {
+          display: flex;
+          justify-content: space-between;
+          span {
+            color: darkblue;
+          }
+          span{
+            .Heart-Icon {
+                color:gold;
+                &:hover {
+                    cursor:pointer;
+                  color: pink;
+                }
+                &:active{
+                    cursor:pointer;
+                    color: red;
+    
+                }
+              }
+              small{
+                  color:red;
+              }
+          }
+      
         }
+      }
     }
+  }
 }

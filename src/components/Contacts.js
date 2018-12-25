@@ -1,4 +1,5 @@
 import React from "react";
+import './contacts.scss';
 import {
   Card,
   CardBody,

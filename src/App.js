@@ -7,13 +7,19 @@ import logoReact from "./logo.svg";
 import "./App.scss";
 
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import repositories from "./components/Repositories";
+// import repositories from "./components/Repositories";
+import Repositories from "./components/Repositories";
 import contacts from "./components/Contacts";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { splashscreen: true, content: false };
+    this.state = { 
+      splashscreen: true, 
+      content: false,
+      searchWord: 'react'
+    };
+    // this.getSearchData = this.getSearchData.bind(this)
   }
   componentDidMount() {
     console.log("componentDidMount()");
@@ -21,7 +27,10 @@ class App extends React.Component {
       this.setState({ splashscreen: false, content: true });
     }, 3000);
   }
-
+//   getSearchData = (value) => {
+//     console.log(value,'getSearchData from Navbar');
+//     this.setState({ searchWord: value });
+//  }
   render() {
     return (
       <div className="App">
@@ -29,6 +38,8 @@ class App extends React.Component {
         {this.state.content && (
           <div>
             <Navbarmenu />
+            {/* <Navbarmenu getSearchData={this.getSearchData}/> */}
+
             <img src={logoReact} width={100} className="App-logo" alt="logo" />
 
             <main className="App-main">
@@ -36,7 +47,10 @@ class App extends React.Component {
 
               <Router>
                 <Switch>
-                  <Route exact path="/" component={repositories} />
+                  {/* <Route exact path="/" component={repositories} /> */}
+                  <Route exact path="/" render={()=><Repositories searchWord={this.state.searchWord}/>} />
+
+                  
                   <Route path="/contacts" component={contacts} />
                 </Switch>
               </Router>

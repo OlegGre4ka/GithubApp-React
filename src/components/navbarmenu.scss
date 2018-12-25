@@ -4,4 +4,13 @@
             margin-right:10px;
         }
     }
+    .Collapse{
+        .Nav{
+            .inputSearch{
+                display:flex;
+                flex-direction: row;
+                // flex-wrap:wrap;
+            }
+        }
+    }
 }
