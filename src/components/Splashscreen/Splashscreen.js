@@ -1,14 +1,13 @@
 import React from 'react';
-import './App.scss';
+import './../../App.scss';
 import './splashscreen.scss';
-import logoGitCat from './assets/github-logo.png'
+import logoGitCat from './../../assets/github-logo.png'
 class Splashscreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { splashscreen: true };
   }
   componentDidMount() {
-    console.log("componentDidMount()");
     setTimeout(() => {
       this.setState({ splashscreen: false });
     }, 3000);

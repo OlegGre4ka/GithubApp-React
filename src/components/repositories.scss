@@ -9,14 +9,20 @@
     flex-wrap: wrap;
 
     .Card {
+      margin-top:15px;
       .CardBody {
         .CardTitle {
           display: flex;
           justify-content: space-between;
-          span {
-            color: darkblue;
+          p{
+            span {
+              color: darkblue;
+            }
           }
+       
           span{
+            display: flex;
+            justify-content: space-between;
             .Heart-Icon {
                 color:gold;
                 &:hover {

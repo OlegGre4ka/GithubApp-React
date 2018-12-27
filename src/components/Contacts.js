@@ -42,10 +42,10 @@ export default class Contacts extends React.Component {
       <div className="Contacts container">
         <div className="row">
           <div className="col-lg-3" />
-          {users.map((user, i) => (
+          {users.map((user) => (
             // <h3 key={i}>{item.login}</h3>
 
-            <Card key={i} className="col-lg-6">
+            <Card key={user.id} className="col-lg-6">
               <CardImg
                 top
                 width="100%"
@@ -57,7 +57,7 @@ export default class Contacts extends React.Component {
                 <CardText>
                   <span>Github API URL:</span>
                   <br />
-                  <a href={user.html_url} target="noopener noorefer">
+                  <a href={user.html_url} target="_blank" rel="noreferrer noopener">
                     {user.html_url}
                   </a>
                 </CardText>
@@ -93,7 +93,7 @@ export default class Contacts extends React.Component {
                   <br />
                   <a
                     href="https://www.linkedin.com/in/oleg-grechka-b14488172/"
-                    target="noopener noorefer"
+                    target="_blank" rel="noreferrer noopener"
                   >
                     https://www.linkedin.com/in/oleg-grechka-b14488172/
                   </a>
@@ -102,7 +102,7 @@ export default class Contacts extends React.Component {
                 <CardText>
                   <span>Telegram:</span>
                   <br />
-                  <a href="https://t.me/gre4kae" target="noopener noorefer">
+                  <a href="https://t.me/gre4kae" >
                     https://t.me/gre4kae
                   </a>
                 </CardText>

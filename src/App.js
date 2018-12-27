@@ -1,6 +1,6 @@
 import React from "react";
 // import React, { Component } from 'react';
-import Splashscreen from "./components/Splashscreen";
+import Splashscreen from "./components/Splashscreen/Splashscreen";
 import Navbarmenu from "./components/Navbarmenu";
 
 import logoReact from "./logo.svg";
@@ -17,28 +17,38 @@ class App extends React.Component {
     this.state = { 
       splashscreen: true, 
       content: false,
-      searchWord: 'react'
+      searchWord: '' 
     };
     // this.getSearchData = this.getSearchData.bind(this)
   }
   componentDidMount() {
     console.log("componentDidMount()");
-    setTimeout(() => {
+  //  this.splashTimeID = setTimeout(() => {
+ setTimeout(() => {
+
       this.setState({ splashscreen: false, content: true });
     }, 3000);
+    this.getSearchData();
   }
-//   getSearchData = (value) => {
-//     console.log(value,'getSearchData from Navbar');
-//     this.setState({ searchWord: value });
-//  }
+  // componentWillUnmount() {
+  //   clearTimeout(this.splashTimeID);
+  // }
+  getSearchData = (value) => {
+    console.log(value,'getSearchData from Navbar');
+    this.setState({ searchWord: value });
+    console.log(this.state.searchWord, 'searchWord in App from Nav,ar in this.state')
+    // return this.state.searchWord
+ }
   render() {
+   console.log(this.state.searchWord,'in render from state in AppComponent')
     return (
       <div className="App">
         {this.state.splashscreen && <Splashscreen />}
         {this.state.content && (
+          //short syntaxis <React.Fragment>
           <div>
-            <Navbarmenu />
-            {/* <Navbarmenu getSearchData={this.getSearchData}/> */}
+            {/* <Navbarmenu /> */}
+            <Navbarmenu getSearchData={this.getSearchData}/>
 
             <img src={logoReact} width={100} className="App-logo" alt="logo" />
 
@@ -48,7 +58,9 @@ class App extends React.Component {
               <Router>
                 <Switch>
                   {/* <Route exact path="/" component={repositories} /> */}
-                  <Route exact path="/" render={()=><Repositories searchWord={this.state.searchWord}/>} />
+                  <Route exact path="/" render={()=><Repositories  searchWord={this.state.searchWord}/>} />
+                  {/* <Route exact path="/" render={()=><Repositories searchWord={()=>this.getSearchData}/>} /> */}
+
 
                   
                   <Route path="/contacts" component={contacts} />

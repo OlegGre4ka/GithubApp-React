@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Splashscreen from './Splashscreen';
 
-// ReactDOM.render(<Splashscreen />, document.getElementById('splash'));
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

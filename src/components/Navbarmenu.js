@@ -28,16 +28,23 @@ export default class Example extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      inputWord: 'react'
+      inputWord: ""
     };
-    this.searchRepos = this.searchRepos.bind(this)
   }
-  searchRepos (searchChart) {
+  componentDidMount() {
+    // this.searchRepos(this.searchValue);
+    this.props.getSearchData(this.state.inputWord)
+    // this.searchRepos(this.props.searchWord);
+  
+  }
+  searchRepos = (searchChart) => {
+    console.log(searchChart,'searchChart')
     this.setState({
-      inputWord: searchChart.target.value
+      inputWord: searchChart.target.value.substr(0,40)
     });
-    console.log(this.state.inputWord,'input data from search')
-    // this.props.getSearchData(this.state.inputWord)
+    console.log(this.state.inputWord, "input data from search");
+    this.props.getSearchData(this.state.inputWord)
+  
   }
 
   toggle() {
@@ -74,22 +81,21 @@ export default class Example extends React.Component {
             </NavItem>
             <NavItem className="inputSearch">
               <InputGroupAddon addonType="append" size="normal">
-                <Input placeholder="Search..." 
-                 value={this.state.inputWord}
-                //  onClick={this.props.getSearchData(this.state.inputWord)}
-                //  onClick={getSearchData('basic-express')}
-onChange={this.searchRepos}
-
-          // eslint-disable-next-line react/jsx-no-duplicate-props
-          // onClick={this.searchRepos}
-          />
-                <InputGroupText>
+                <Input type="text"
+                  placeholder="Search..."
+                   value={this.state.inputWord}
+                   onChange={this.searchRepos}
+                  //  onClick={getSearchData('basic-express')}
+                  onKeyDown={this.searchRepos}
+              
+                />
+                <InputGroupText className="FaSearchIconGroup" onClick={()=>this.searchRepos}>
                   <FaSistrix />
                 </InputGroupText>
               </InputGroupAddon>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
+              <NavLink href="https://github.com/reactstrap/reactstrap" target="_blank" rel="noreferrer noopener">
                 GitHub
               </NavLink>
             </NavItem>

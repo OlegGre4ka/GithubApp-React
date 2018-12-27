@@ -9,7 +9,9 @@
             .inputSearch{
                 display:flex;
                 flex-direction: row;
-                // flex-wrap:wrap;
+                .FaSearchIconGroup{
+                    cursor:pointer;
+                }
             }
         }
     }
