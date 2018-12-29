@@ -10,11 +10,8 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  Input
+
 } from "reactstrap";
 import { FaSistrix } from "react-icons/fa";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";

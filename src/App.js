@@ -7,7 +7,6 @@ import logoReact from "./logo.svg";
 import "./App.scss";
 
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-// import repositories from "./components/Repositories";
 import Repositories from "./components/Repositories";
 import contacts from "./components/Contacts";
 
@@ -19,25 +18,20 @@ class App extends React.Component {
       content: false,
       searchWord: '' 
     };
-    // this.getSearchData = this.getSearchData.bind(this)
   }
   componentDidMount() {
     console.log("componentDidMount()");
-  //  this.splashTimeID = setTimeout(() => {
  setTimeout(() => {
 
       this.setState({ splashscreen: false, content: true });
     }, 3000);
     this.getSearchData();
   }
-  // componentWillUnmount() {
-  //   clearTimeout(this.splashTimeID);
-  // }
+
   getSearchData = (value) => {
     console.log(value,'getSearchData from Navbar');
     this.setState({ searchWord: value });
     console.log(this.state.searchWord, 'searchWord in App from Nav,ar in this.state')
-    // return this.state.searchWord
  }
   render() {
    console.log(this.state.searchWord,'in render from state in AppComponent')
@@ -53,7 +47,6 @@ class App extends React.Component {
             <img src={logoReact} width={100} className="App-logo" alt="logo" />
 
             <main className="App-main">
-            {/* <img src={logoReact} width={100} className="App-logo" alt="logo" /> */}
 
               <Router>
                 <Switch>
