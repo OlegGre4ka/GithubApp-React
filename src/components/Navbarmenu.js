@@ -11,7 +11,6 @@ import {
   InputGroupAddon,
   InputGroupText,
   Input
-
 } from "reactstrap";
 import { FaSistrix } from "react-icons/fa";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -19,38 +18,36 @@ import logoGitNavbar from "../assets/github-logo-24.png";
 import "./navbarmenu.scss";
 
 export default class Example extends React.Component {
+  
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      inputWord: ""
+      inputWord: "",
+      inputField: true
     };
   }
-  componentDidMount() {
-    // this.searchRepos(this.searchValue);
-    this.props.getSearchData(this.state.inputWord)
-    // this.searchRepos(this.props.searchWord);
-  
-  }
-  searchRepos = (searchChart) => {
-    console.log(searchChart,'searchChart')
+  // componentDidMount() {
+    
+  // }
+  onSearchInputChange = event => {
     this.setState({
-      inputWord: searchChart.target.value.substr(0,40)
+      inputWord: event.target.value
     });
-    console.log(this.state.inputWord, "input data from search");
-    this.props.getSearchData(this.state.inputWord)
-  
+  };
+  onSearchInputClick() {
+    this.props.getSearchData(this.state.inputWord);
+    this.setState({
+      inputWord: ""
+    });
   }
-
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
   render() {
-    // const {getSearchData} = this.props;
     return (
       <Navbar
         className="Navbar"
@@ -74,25 +71,38 @@ export default class Example extends React.Component {
               <NavLink href="/">Repositories</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/contacts">My Contacts</NavLink>
+              <NavLink href="/contacts" >My Contacts</NavLink>
             </NavItem>
-            <NavItem className="inputSearch">
-              <InputGroupAddon addonType="append" size="normal">
-                <Input type="text"
-                  placeholder="Search..."
-                   value={this.state.inputWord}
-                   onChange={this.searchRepos}
-                  //  onClick={getSearchData('basic-express')}
-                  onKeyDown={this.searchRepos}
-              
-                />
-                <InputGroupText className="FaSearchIconGroup" onClick={()=>this.searchRepos}>
-                  <FaSistrix />
-                </InputGroupText>
-              </InputGroupAddon>
-            </NavItem>
+            {/* над цим треба ще попрацювати - поле інпут true-false */}
+            {this.state.inputField && (
+              <NavItem className="inputSearch">
+                <InputGroupAddon addonType="append" size="normal">
+                  <Input
+                    type="text"
+                    placeholder="Search..."
+                    value={this.state.inputWord}
+                    onChange={this.onSearchInputChange}
+                    onKeyPress={event => {
+                      if (event.key === "Enter") {
+                        this.onSearchInputClick();
+                      }
+                    }}
+                  />
+                  <InputGroupText
+                    className="FaSearchIconGroup"
+                    onClick={() => this.onSearchInputClick()}
+                  >
+                    <FaSistrix />
+                  </InputGroupText>
+                </InputGroupAddon>
+              </NavItem>
+            )}
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap" target="_blank" rel="noreferrer noopener">
+              <NavLink
+                href="https://github.com/reactstrap/reactstrap"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 GitHub
               </NavLink>
             </NavItem>
@@ -101,4 +111,6 @@ export default class Example extends React.Component {
       </Navbar>
     );
   }
+
+ 
 }

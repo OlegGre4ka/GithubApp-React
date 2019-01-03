@@ -3,43 +3,45 @@
     padding-top: 0;
     margin-top: 0;
     color: aqua;
+    span {
+      color: rgb(39, 9, 209);
+    }
   }
   .Row {
     display: flex;
-    flex-wrap: wrap;
-
+    // flex-wrap: wrap;
+    flex-flow: row wrap;
     .Card {
-      margin-top:15px;
+      margin-top: 10px;
+
       .CardBody {
         .CardTitle {
           display: flex;
           justify-content: space-between;
-          p{
-            span {
+          p {
+            .Link {
               color: darkblue;
             }
           }
-       
-          span{
+
+          span {
             display: flex;
             justify-content: space-between;
             .Heart-Icon {
-                color:gold;
-                &:hover {
-                    cursor:pointer;
-                  color: pink;
-                }
-                &:active{
-                    cursor:pointer;
-                    color: red;
-    
-                }
+              color: gold;
+              &:hover {
+                cursor: pointer;
+                color: pink;
               }
-              small{
-                  color:red;
+              &:active {
+                cursor: pointer;
+                color: red;
               }
+            }
+            small {
+              color: red;
+            }
           }
-      
         }
       }
     }

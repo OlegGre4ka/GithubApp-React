@@ -1,59 +1,48 @@
 import React from "react";
-import "./repositories.scss";
+import "./repos-detailed.scss";
 import {
   Card,
-  CardText,
   CardBody,
-  CardLink,
   CardTitle,
-  CardSubtitle
+  CardText,
+  CardLink,
+  CardSubtitle,
 } from "reactstrap";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  match,
-  location
-} from "react-router-dom";
 import Moment from "moment";
 import { FaRegHeart } from "react-icons/fa";
-import ReposDetailed from "./ReposDetailed";
-export default class Repositories extends React.Component {
-  constructor(props) {
-    super(props);
+export default class ReposDetailed extends React.Component {
+  constructor(props, {match}) {
+    super(props, {match});
     this.state = {
       items: [],
       repos: [],
       countLike: null,
-      defaulWord: true,
-      itemID: []
+      defaulWord: true
     };
   }
 
   componentDidMount() {
-    this.searchRepos(this.props.searchWord);
+    const items = [...this.props.items];
+    this.setState({ items: items });
   }
 
-  searchRepos(val) {
-    fetch(`https://api.github.com/search/repositories?q=${val}`)
-      // eslint-disable-next-line no-const-assign
-      .then(response => response.json())
+  // searchRepos(val) {
+  //   console.log(this.props.searchWord, "this.props");
 
-      .then(data => {
-        this.setState({
-          repos: [data],
-          items: data.items
-        });
-        this.getLikeFromLocalStorage();
-      });
-  }
-  itemFilterById = id => {
-    const { items } = this.state;
-    const itemID1 = items.filter(item => item.id === id);
-    this.setState({ itemID: itemID1 });
-    return this.props.itemsForDetailed(itemID1);
-  };
+  //   fetch(`https://api.github.com/search/repositories?q=${val}`)
+  //     // eslint-disable-next-line no-const-assign
+  //     .then(response => response.json())
+
+  //     .then(data => {
+  //       console.log(data, "data");
+  //       this.setState({
+  //         repos: [data],
+  //         items: data.items
+  //       });
+  //       this.getLikeFromLocalStorage();
+  //       // this.props.itemsForApp(this.state.items);
+  //     });
+  // }
   // створюємо унікальний ключ для локалсторадж
   uniqueKey = id => {
     const keyLocaleStorage =
@@ -76,6 +65,8 @@ export default class Repositories extends React.Component {
   // при кліку збільшуємо на 1 і сетаємо в localStorage
   addLike = id => {
     const { items } = this.state;
+
+    console.log(items, "countLike in addLike()");
     // eslint-disable-next-line array-callback-return
     items.map(item => {
       // eslint-disable-next-line no-cond-assign
@@ -87,50 +78,62 @@ export default class Repositories extends React.Component {
   };
 
   render() {
-    const { repos, items } = this.state;
+    const { items } = this.state;
 
     return (
-      <div className="Repositories container">
-        {repos.map((repo, i) => (
-          <h1 key={i}>
-            {this.state.defaulWord && <> Default</>} Request{" "}
-            <span>{this.props.searchWord}</span> found: {repo.total_count}
-          </h1>
-        ))}
+      <div className="Repos-Detailed container">
         <div className="Row row">
+          <div className="col-lg-3" />
+
           {items.map(item => (
-            <Card key={item.id} className="Card col-lg-4">
+            <Card key={item.id} className="Card col-lg-6">
               <CardBody className="CardBody">
+             
+                <img
+                  width="20%"
+                  src={item.owner.avatar_url}
+                  aria-hidden
+                  alt={item.name}
+                />
                 <CardTitle className="CardTitle">
                   <p>
-                    Project:
-                    <Link
-                      className="Link"
-                      to={`/${item.id}`}
-                      onClick={() => this.itemFilterById(item.id)}
-                    >
-                      {item.name}
-                    </Link>
+                    Project: <span>{item.name}</span>
                   </p>
                   <span>
                     <FaRegHeart
                       onClick={() => this.addLike(item.id)}
                       className="Heart-Icon"
                     />
-                    {/* <small>{this.state.countLike}</small> */}
                     <small>{item.countLike}</small>
                   </span>
                 </CardTitle>
-
-                <CardSubtitle>Language: {item.language}</CardSubtitle>
+                <CardTitle>Owner: {item.owner.login}</CardTitle>
+                <CardText>Language: {item.language}</CardText>
               </CardBody>
 
               <CardBody>
+                <p> Created:</p>
+                  <CardSubtitle>
+                    {Moment(item.created_at).format("MMMM Do YYYY, k:mm:ss")}
+                  </CardSubtitle>
+            
+                <p> Updated:</p>
+                  <br />
+                  <CardSubtitle>
+                    {Moment(item.updated_at).format("MMMM Do YYYY, k:mm:ss")}
+                  </CardSubtitle>
+
+                <CardText>
+                  Clone URL:
+                  <br /> {item.clone_url}
+                </CardText>
+
                 <CardText>
                   Description:
                   <br />
                   <small> {item.description}</small>
                 </CardText>
+
                 <CardLink
                   href={item.html_url}
                   target="_blank"
@@ -141,22 +144,19 @@ export default class Repositories extends React.Component {
               </CardBody>
             </Card>
           ))}
+          <div className="col-lg-3" />
         </div>
       </div>
     );
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.searchWord === "") {
-      return false;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(nextProps, "prevProps");
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.searchWord !== prevProps.searchWord) {
-      this.searchRepos(this.props.searchWord);
-      this.setState({ defaulWord: false });
-    }
-  }
+  //   if (nextProps.searchWord === "") {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
 }

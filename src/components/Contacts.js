@@ -3,10 +3,8 @@ import './contacts.scss';
 import {
   Card,
   CardBody,
-  Button,
   CardTitle,
   CardText,
-  CardImg,
   CardFooter
 } from "reactstrap";
 import Moment from 'moment';
@@ -18,6 +16,7 @@ export default class Contacts extends React.Component {
     };
   }
   componentDidMount() {
+  
     fetch(`https://api.github.com/users/OlegGre4ka`)
       //   {
       //     method: 'GET',
@@ -29,28 +28,26 @@ export default class Contacts extends React.Component {
       .then(response => response.json())
 
       .then(data => {
-        console.log(data,'data in contacts')
         this.setState({ users: [data] });
       });
   }
 
   render() {
     const { users } = this.state;
-    console.log(users, "in render()");
 
     return (
       <div className="Contacts container">
-        <div className="row">
+        <div className="Row row">
           <div className="col-lg-3" />
           {users.map((user) => (
-            // <h3 key={i}>{item.login}</h3>
 
-            <Card key={user.id} className="col-lg-6">
-              <CardImg
-                top
-                width="100%"
+            <Card key={user.id} className="Card col-lg-6">
+              <img
+                
+                width="30%"
                 src={user.avatar_url}
-                alt="Card image cap"
+                aria-hidden
+                alt ={user.login}
               />
               <CardBody>
                 <CardTitle>{user.login}</CardTitle>
@@ -73,6 +70,7 @@ export default class Contacts extends React.Component {
                     Updated: {Moment(user.updated_at).format("MMMM Do YYYY, k:mm:ss")}
                   </small>
                 </CardText>
+              </CardBody>
                 <CardFooter>
                 <div className="card-title">Contacts</div>
 
@@ -107,7 +105,6 @@ export default class Contacts extends React.Component {
                   </a>
                 </CardText>
                 </CardFooter>
-              </CardBody>
             </Card>
           ))}
           <div className="col-lg-3" />

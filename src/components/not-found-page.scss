@@ -1,0 +1,32 @@
+h2 {
+    color: red;
+    text-align: center;
+    margin-top:-250px;
+    // анимация текста - мигание
+    animation-name: h2;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+    animation-duration: 2s;
+    -webkit-animation-name: h2;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1);
+    -webkit-animation-duration: 2s;
+  }
+  
+  @keyframes h2 {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  
+  @-webkit-keyframes h2 {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
