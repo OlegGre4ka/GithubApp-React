@@ -8,20 +8,14 @@ import {
   CardTitle,
   CardSubtitle
 } from "reactstrap";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  match,
-  location
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { history } from "history";
 import Moment from "moment";
 import { FaRegHeart } from "react-icons/fa";
 import ReposDetailed from "./ReposDetailed";
 export default class Repositories extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       items: [],
       repos: [],
@@ -52,7 +46,9 @@ export default class Repositories extends React.Component {
     const { items } = this.state;
     const itemID1 = items.filter(item => item.id === id);
     this.setState({ itemID: itemID1 });
-    return this.props.itemsForDetailed(itemID1);
+    // return
+    this.props.itemsForDetailed(itemID1);
+    // this.props.history.push("/repositories/:id");
   };
   // створюємо унікальний ключ для локалсторадж
   uniqueKey = id => {
@@ -106,11 +102,18 @@ export default class Repositories extends React.Component {
                     Project:
                     <Link
                       className="Link"
-                      to={`/${item.id}`}
+                      to={`/repositories/${item.id}`}
                       onClick={() => this.itemFilterById(item.id)}
                     >
                       {item.name}
                     </Link>
+                    {/* <span
+                      className="Link"
+                      // to={`/repositories/${item.id}`}
+                      onClick={() => this.itemFilterById(item.id)}
+                    >
+                      {item.name}
+                    </span> */}
                   </p>
                   <span>
                     <FaRegHeart

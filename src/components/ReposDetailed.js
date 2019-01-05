@@ -11,8 +11,8 @@ import {
 import Moment from "moment";
 import { FaRegHeart } from "react-icons/fa";
 export default class ReposDetailed extends React.Component {
-  constructor(props, {match}) {
-    super(props, {match});
+  constructor(props,context) {
+    super(props, context);
     this.state = {
       items: [],
       repos: [],
@@ -24,6 +24,7 @@ export default class ReposDetailed extends React.Component {
   componentDidMount() {
     const items = [...this.props.items];
     this.setState({ items: items });
+    console.log(this.context,'context Detailed')
   }
 
   // searchRepos(val) {

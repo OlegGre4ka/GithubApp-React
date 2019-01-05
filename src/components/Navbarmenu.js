@@ -13,7 +13,7 @@ import {
   Input
 } from "reactstrap";
 import { FaSistrix } from "react-icons/fa";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route,  NavLink as RRNavLink, Switch } from "react-router-dom";
 import logoGitNavbar from "../assets/github-logo-24.png";
 import "./navbarmenu.scss";
 
@@ -68,10 +68,10 @@ export default class Example extends React.Component {
         <Collapse className="Collapse" isOpen={this.state.isOpen} navbar>
           <Nav className="Nav ml-auto" navbar>
             <NavItem>
-              <NavLink href="/">Repositories</NavLink>
+              <NavLink exact to="/repositories" tag={RRNavLink} activeStyle={{color:"green"}}>Repositories</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/contacts" >My Contacts</NavLink>
+              <NavLink to="/contacts" tag={RRNavLink} activeStyle={{color:"green"}}>My Contacts</NavLink>
             </NavItem>
             {/* над цим треба ще попрацювати - поле інпут true-false */}
             {this.state.inputField && (
