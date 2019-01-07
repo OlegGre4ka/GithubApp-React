@@ -19,8 +19,15 @@
           display: flex;
           justify-content: space-between;
           p {
-            .Link {
+            span {
+              display:inline;
+              margin-left:5px;
               color: darkblue;
+              cursor: pointer;
+              &:hover {
+                cursor: pointer;
+                color: green;
+              }
             }
           }
 
@@ -28,7 +35,6 @@
             display: flex;
             justify-content: space-between;
             .Heart-Icon {
-              color: gold;
               &:hover {
                 cursor: pointer;
                 color: pink;

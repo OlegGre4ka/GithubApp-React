@@ -41,10 +41,12 @@ class App extends React.Component {
   };
 
   render() {
+    console.log(this.props, "props-app");
     return (
       <div className="App">
         <div>
           <Navbarmenu
+            history={this.props.history}
             getSearchData={this.getSearchData}
             contactPath={this.state.contactPath}
           />
@@ -61,10 +63,25 @@ class App extends React.Component {
           <main className="App-main">
             <Switch>
               <Route
+                path="/repositories/:id"
+                render={() => (
+                  <ReposDetailed
+                  match={this.state.match}
+                    history={this.props.history}
+                    searchWord={this.state.searchWord}
+                    items={this.state.items}
+                    id={this.state.match}
+                  />
+                )}
+              />
+
+              <Route
                 path="/repositories"
                 exact
                 render={() => (
                   <Repositories
+                    history={this.props.history}
+                    match={this.props.match}
                     searchWord={this.state.searchWord}
                     itemsForDetailed={this.itemsForDetailed}
                   />
@@ -72,16 +89,17 @@ class App extends React.Component {
               />
               <Route path="/contacts" render={() => <Contacts />} />
               {/* <Route path="app/contacts" component={Contacts} /> */}
-              <Route
+              {/* <Route
                 path="/repositories/:id"
                 render={() => (
                   <ReposDetailed
+                  match={this.props.match}
                     searchWord={this.state.searchWord}
                     items={this.state.items}
                     id={this.state.match}
                   />
                 )}
-              />
+              /> */}
 
               <Route path="**" component={NotFoundPage} />
             </Switch>

@@ -25,7 +25,6 @@ export default class Example extends React.Component {
     this.state = {
       isOpen: false,
       inputWord: "",
-      inputField: true
     };
   }
   // componentDidMount() {
@@ -41,6 +40,8 @@ export default class Example extends React.Component {
     this.setState({
       inputWord: ""
     });
+    // eslint-disable-next-line no-restricted-globals
+    this.props.history.push('/repositories')
   }
   toggle() {
     this.setState({
@@ -52,7 +53,7 @@ export default class Example extends React.Component {
       <Navbar
         className="Navbar"
         color=""
-        style={{ backgroundColor: "rgb(1, 228, 228)" }}
+        // style={{ backgroundColor: "rgb(1, 228, 228)" }}
         light
         expand="md"
       >
@@ -73,8 +74,6 @@ export default class Example extends React.Component {
             <NavItem>
               <NavLink to="/contacts" tag={RRNavLink} activeStyle={{color:"green"}}>My Contacts</NavLink>
             </NavItem>
-            {/* над цим треба ще попрацювати - поле інпут true-false */}
-            {this.state.inputField && (
               <NavItem className="inputSearch">
                 <InputGroupAddon addonType="append" size="normal">
                   <Input
@@ -96,8 +95,7 @@ export default class Example extends React.Component {
                   </InputGroupText>
                 </InputGroupAddon>
               </NavItem>
-            )}
-            <NavItem>
+            {/* <NavItem>
               <NavLink
                 href="https://github.com/reactstrap/reactstrap"
                 target="_blank"
@@ -105,7 +103,7 @@ export default class Example extends React.Component {
               >
                 GitHub
               </NavLink>
-            </NavItem>
+            </NavItem> */}
           </Nav>
         </Collapse>
       </Navbar>

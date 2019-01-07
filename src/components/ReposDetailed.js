@@ -9,7 +9,7 @@ import {
   CardSubtitle,
 } from "reactstrap";
 import Moment from "moment";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 export default class ReposDetailed extends React.Component {
   constructor(props,context) {
     super(props, context);
@@ -22,9 +22,16 @@ export default class ReposDetailed extends React.Component {
   }
 
   componentDidMount() {
-    const items = [...this.props.items];
-    this.setState({ items: items });
-    console.log(this.context,'context Detailed')
+    console.log(this.props.items, this.props.match,'items in detailed')
+    // eslint-disable-next-line no-undef
+    if(this.props.items===undefined){
+      this.props.history.push('/repositories')
+    } else{
+      const items = [...this.props.items];
+      this.setState({ items: items });
+    }
+  
+  
   }
 
   // searchRepos(val) {
@@ -57,30 +64,65 @@ export default class ReposDetailed extends React.Component {
     const itemsFor = [...items];
     // eslint-disable-next-line array-callback-return
     itemsFor.map(item => {
-      item.countLike = localStorage.getItem(this.uniqueKey(item.id));
+      const likeFormLocalStorage = localStorage.getItem(
+        this.uniqueKey(item.id)
+      );
+      item.like = likeFormLocalStorage;
+      if (likeFormLocalStorage === "brown") {
+        item.thumbsUp = false;
+        item.thumbsDown = true;
+    
+      } else if (likeFormLocalStorage === "red") {
+        item.thumbsUp = true;
+        item.thumbsDown = false;
+      } else {
+        item.thumbsUp = true;
+        item.thumbsDown = false;
+      }
     });
     return this.setState({
       items: itemsFor
     });
   }
-  // при кліку збільшуємо на 1 і сетаємо в localStorage
+ 
+
   addLike = id => {
     const { items } = this.state;
-
-    console.log(items, "countLike in addLike()");
     // eslint-disable-next-line array-callback-return
     items.map(item => {
-      // eslint-disable-next-line no-cond-assign
+      //     // eslint-disable-next-line no-cond-assign
       if (item.id === id) {
-        localStorage.setItem(this.uniqueKey(item.id), ++item.countLike);
-        this.setState({ countLike: item.countLike });
+        console.log(id, item.id, "--id--item.id--");
+        if (item.thumbsUp === true && item.like === null) {
+          item.like = "red";
+          localStorage.setItem(this.uniqueKey(item.id), item.like);
+
+          this.setState({ like: item.like });
+        } else if (item.thumbsUp === true && item.like === "red") {
+          item.like = "brown";
+          item.thumbsUp =false;
+          item.thumbsDown= true;
+          localStorage.setItem(this.uniqueKey(item.id), item.like);
+
+          this.setState({
+            thumbsUp: item.thumbsUp,
+            thumbsDown: item.thumbsDown,
+            like: item.like
+          });
+        } else if (item.thumbsDown === true) {
+          item.like = null;
+          item.thumbsUp =true;
+          item.thumbsDown= false;
+          localStorage.removeItem(this.uniqueKey(item.id));
+          this.setState({ thumbsUp:item.thumbsUp, thumbsDown: item.thumbsDown, like: item.like });
+        }
       }
     });
   };
 
   render() {
     const { items } = this.state;
-
+console.log(this.props,'match.id-detailed')
     return (
       <div className="Repos-Detailed container">
         <div className="Row row">
@@ -101,11 +143,21 @@ export default class ReposDetailed extends React.Component {
                     Project: <span>{item.name}</span>
                   </p>
                   <span>
-                    <FaRegHeart
-                      onClick={() => this.addLike(item.id)}
-                      className="Heart-Icon"
-                    />
-                    <small>{item.countLike}</small>
+                    {item.thumbsUp && (
+                      <FaRegThumbsUp
+                        style={{ color: item.like }}
+                        onClick={() => this.addLike(item.id)}
+                        className="Heart-Icon"
+                      />
+                    )}
+
+                    {item.thumbsDown && (
+                      <FaRegThumbsDown
+                        style={{ color: item.like }}
+                        onClick={() => this.addLike(item.id)}
+                        className="Heart-Icon"
+                      />
+                    )}
                   </span>
                 </CardTitle>
                 <CardTitle>Owner: {item.owner.login}</CardTitle>
@@ -119,7 +171,6 @@ export default class ReposDetailed extends React.Component {
                   </CardSubtitle>
             
                 <p> Updated:</p>
-                  <br />
                   <CardSubtitle>
                     {Moment(item.updated_at).format("MMMM Do YYYY, k:mm:ss")}
                   </CardSubtitle>
