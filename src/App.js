@@ -18,6 +18,8 @@ import {
 import Repositories from "./components/Repositories";
 import ReposDetailed from "./components/ReposDetailed";
 import Contacts from "./components/Contacts";
+
+import RmcPullToRefresh from "./components/RmcPullToRefresh"
 import NotFoundPage from "./components/NotFoundPage";
 
 class App extends React.Component {
@@ -88,19 +90,7 @@ class App extends React.Component {
                 )}
               />
               <Route path="/contacts" render={() => <Contacts />} />
-              {/* <Route path="app/contacts" component={Contacts} /> */}
-              {/* <Route
-                path="/repositories/:id"
-                render={() => (
-                  <ReposDetailed
-                  match={this.props.match}
-                    searchWord={this.state.searchWord}
-                    items={this.state.items}
-                    id={this.state.match}
-                  />
-                )}
-              /> */}
-
+           
               <Route path="**" component={NotFoundPage} />
             </Switch>
           </main>

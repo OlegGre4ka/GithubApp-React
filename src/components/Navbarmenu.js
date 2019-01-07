@@ -13,22 +13,26 @@ import {
   Input
 } from "reactstrap";
 import { FaSistrix } from "react-icons/fa";
-import { BrowserRouter as Router, Route,  NavLink as RRNavLink, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink as RRNavLink,
+  Switch
+} from "react-router-dom";
 import logoGitNavbar from "../assets/github-logo-24.png";
 import "./navbarmenu.scss";
 
 export default class Example extends React.Component {
-  
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      inputWord: "",
+      inputWord: ""
     };
   }
   // componentDidMount() {
-    
+
   // }
   onSearchInputChange = event => {
     this.setState({
@@ -41,7 +45,7 @@ export default class Example extends React.Component {
       inputWord: ""
     });
     // eslint-disable-next-line no-restricted-globals
-    this.props.history.push('/repositories')
+    this.props.history.push("/repositories");
   }
   toggle() {
     this.setState({
@@ -69,32 +73,47 @@ export default class Example extends React.Component {
         <Collapse className="Collapse" isOpen={this.state.isOpen} navbar>
           <Nav className="Nav ml-auto" navbar>
             <NavItem>
-              <NavLink exact to="/repositories" tag={RRNavLink} activeStyle={{color:"green"}}>Repositories</NavLink>
+              <NavLink
+                exact
+                to="/repositories"
+                tag={RRNavLink}
+                activeStyle={{ color: "green" }}
+              >
+                Repositories
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/contacts" tag={RRNavLink} activeStyle={{color:"green"}}>My Contacts</NavLink>
+              <NavLink
+                to="/contacts"
+                tag={RRNavLink}
+                activeStyle={{ color: "green" }}
+              >
+                My Contacts
+              </NavLink>
             </NavItem>
-              <NavItem className="inputSearch">
-                <InputGroupAddon addonType="append" size="normal">
-                  <Input
-                    type="text"
-                    placeholder="Search..."
-                    value={this.state.inputWord}
-                    onChange={this.onSearchInputChange}
-                    onKeyPress={event => {
-                      if (event.key === "Enter") {
-                        this.onSearchInputClick();
-                      }
-                    }}
-                  />
-                  <InputGroupText
-                    className="FaSearchIconGroup"
-                    onClick={() => this.onSearchInputClick()}
-                  >
-                    <FaSistrix />
-                  </InputGroupText>
-                </InputGroupAddon>
-              </NavItem>
+            <NavItem className="inputSearch">
+              <InputGroupAddon addonType="append" size="normal">
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  value={this.state.inputWord}
+                  onChange={this.onSearchInputChange}
+                  onKeyPress={event => {
+                    if (event.key === "Enter") {
+                      this.onSearchInputClick();
+                    }
+                  }}
+                />
+                <InputGroupText
+                  className="FaSearchIconGroup"
+                  onClick={() => this.onSearchInputClick()}
+                >
+                  <FaSistrix />
+                </InputGroupText>
+              </InputGroupAddon>
+            </NavItem>
+
+          
             {/* <NavItem>
               <NavLink
                 href="https://github.com/reactstrap/reactstrap"
@@ -109,6 +128,4 @@ export default class Example extends React.Component {
       </Navbar>
     );
   }
-
- 
 }

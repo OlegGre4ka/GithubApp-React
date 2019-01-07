@@ -13,6 +13,7 @@ import { history } from "history";
 import Moment from "moment";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import ReposDetailed from "./ReposDetailed";
+import RmcPullToRefresh from "./RmcPullToRefresh";
 export default class Repositories extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -97,7 +98,6 @@ export default class Repositories extends React.Component {
           item.like = "red";
           localStorage.setItem(this.uniqueKey(item.id), item.like);
           this.setState({ like: item.like });
-          
         } else if (item.thumbsUp === true && item.like === "red") {
           item.like = "brown";
           item.thumbsUp = false;
@@ -135,6 +135,12 @@ export default class Repositories extends React.Component {
           </h1>
         ))}
         <div className="Row row">
+          <div id="RmcPullToRefresh"  className="col-lg-12 ">
+            <RmcPullToRefresh
+              items={items}
+              className="RmcPullToRefresh col-lg-12 "
+            />
+          </div>
           {items.map(item => (
             <Card key={item.id} className="Card col-lg-4">
               <CardBody className="CardBody">
